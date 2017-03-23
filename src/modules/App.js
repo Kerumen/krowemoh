@@ -4,6 +4,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Waypoint from 'react-waypoint';
 
 import { getProducts } from '../redux/actions/products';
 
@@ -34,16 +35,13 @@ const headers = [{
 
 @connect(state => ({
   products: state.products.get('products'),
+  noMoreProducts: state.products.get('noMoreProducts'),
 }), {
   getProducts,
 })
 class App extends Component {
-  componentDidMount() {
-    this.props.getProducts();
-  }
-
   render() {
-    const { products } = this.props;
+    const { products, getProducts, noMoreProducts } = this.props;
 
     return (
       <div>
@@ -61,6 +59,10 @@ class App extends Component {
             ) : products.map(product => <Product key={product.get('id')} product={product} />)}
           </tbody>
         </table>
+        <Waypoint onEnter={() => getProducts()} />
+        {noMoreProducts && (
+          <div>~ end of catalogue ~</div>
+        )}
       </div>
     );
   }

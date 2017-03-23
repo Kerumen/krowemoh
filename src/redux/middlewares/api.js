@@ -40,7 +40,7 @@ const apiMiddleware = store => next => async action => {
     const data = await response.text();
     const json = JSON.parse(`[${data.trim().split('\n').join(',')}]`);
 
-    store.dispatch({ type: `${prefix}_SUCCEEDED`, payload: { results: json, page: query.skip / query.limit } });
+    store.dispatch({ type: `${prefix}_SUCCEEDED`, payload: { results: json, query } });
 
     return data;
   } catch (error) {

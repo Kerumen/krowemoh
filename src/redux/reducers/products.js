@@ -10,7 +10,10 @@ import { fromJS } from 'immutable';
  */
 
 const initialState = fromJS({
+  fetching: false,
   sort: 'id',
+  nextPage: 0,
+  noMoreProducts: false,
   products: [],
 });
 
@@ -20,12 +23,16 @@ const initialState = fromJS({
 
 const reducer = handleActions({
 
-  GET_PRODUCTS_SUCCEEDED: (state, { payload: batch }) =>
-    state.update('products', arr => arr.concat(fromJS(batch.results))),
+  GET_PRODUCTS: state => state.set('fetching', true),
 
-  SORT_BY: (state, { payload: sort }) => state.set('sort', sort),
+  GET_PRODUCTS_SUCCEEDED: (state, { payload: { query, results } }) =>
+    state
+      .set('fetching', false)
+      .set('nextPage', (query.skip / query.limit) + 1)
+      .set('noMoreProducts', results.length < query.limit)
+      .update('products', arr => arr.concat(fromJS(results))),
 
-  RESET_PRODUCTS: state => state.set('products', initialState.get('products')),
+  SORT_BY: (state, { payload: sort }) => initialState.set('sort', sort),
 
 }, initialState);
 
