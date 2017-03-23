@@ -13,7 +13,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './redux/reducers';
 import middlewares from './redux/middlewares';
 
-import App from './components/App';
+import App from './modules/App';
+
+import './main.css';
 
 /**
  * Create store

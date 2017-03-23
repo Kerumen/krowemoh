@@ -13,7 +13,7 @@ const apiMiddleware = store => next => async action => {
 
   const prefix = action.type.split(':')[1];
 
-  const { method = 'get', body, query, onSucceeded, onFailed } = action.payload;
+  const { method = 'get', body, query } = action.payload;
   let { endpoint } = action.payload;
 
   const options = {
@@ -35,30 +35,18 @@ const apiMiddleware = store => next => async action => {
 
   store.dispatch({ type: prefix });
 
-  const response = await fetch(`/api${endpoint}`, options);
+  try {
+    const response = await fetch(`/api${endpoint}`, options);
+    const data = await response.text();
+    const json = JSON.parse(`[${data.trim().split('\n').join(',')}]`);
 
-  const isNetworkError = response.status < 200 || response.status >= 300;
+    store.dispatch({ type: `${prefix}_SUCCEEDED`, payload: { results: json, page: query.skip / query.limit } });
 
-  const data = await response.json();
-  const isAPIError = data.code < 200 || data.code >= 300;
-
-  const type = isNetworkError || isAPIError ? `${prefix}_FAILED` : `${prefix}_SUCCEEDED`;
-
-  store.dispatch({ type, payload: data.data || data });
-
-  if (onSucceeded && !isAPIError) {
-    onSucceeded(data.data || data);
+    return data;
+  } catch (error) {
+    store.dispatch({ type: `${prefix}_FAILED`, error });
+    return error;
   }
-
-  if (onFailed && isAPIError) {
-    onFailed(data.data || data);
-  }
-
-  if (isAPIError) {
-    window.alert(data.message);
-  }
-
-  return data;
 };
 
 /**

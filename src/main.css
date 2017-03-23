@@ -1,0 +1,30 @@
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.loading {
+  animation: flash 1s infinite;
+  text-align: center;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 800px;
+}
+
+.table th,
+.table td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.sorted::after {
+  content: '▾';
+}
+
+@keyframes flash {
+  0%   { opacity: 1 }
+  50%  { opacity: 0.2 }
+  100% { opacity: 1 }
+}
