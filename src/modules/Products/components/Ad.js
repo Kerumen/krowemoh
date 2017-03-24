@@ -10,12 +10,14 @@ import React, { Component } from 'react';
 
 class Ad extends Component {
   render() {
+    const { index } = this.props;
+
     return (
-      <tr>
-        <td colSpan={4}>
+      <div className="row">
+        <div className="cell" style={{ width: '100%' }}>
           <img className="ad" src={`/ad/?r=${Math.floor(Math.random() * 1000)}`} />
-        </td>
-      </tr>
+        </div>
+      </div>
     );
   }
 }

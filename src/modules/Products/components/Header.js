@@ -26,7 +26,7 @@ class Header extends Component {
     const { header, sort, sortBy } = this.props;
 
     return (
-      <th key={header.value}>
+      <div className="cell">
         {(!header.sortable || sort === header.value) ? (
           <span className={sort === header.value ? 'sorted' : ''}>
             {header.name}
@@ -34,7 +34,7 @@ class Header extends Component {
         ) : (
           <a href="#" onClick={() => sortBy(header.value)}>{header.name}</a>
         )}
-      </th>
+      </div>
     );
   }
 }

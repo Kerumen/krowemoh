@@ -9,20 +9,23 @@ import { createAction } from 'redux-actions';
  */
 
 const apiGetProducts = createAction('API:GET_PRODUCTS');
-const getProducts = () => (dispatch, getState) => {
+const getProducts = page => (dispatch, getState) => {
   const { products } = getState();
 
   const fetching = products.get('fetching');
   const noMoreProducts = products.get('noMoreProducts');
+  const nextPage = products.get('nextPage');
+
   if (fetching || noMoreProducts) return;
 
+  if (page !== nextPage) return;
+
   const sort = products.get('sort');
-  const page = products.get('nextPage');
   const limit = 50;
   return dispatch(apiGetProducts({
     endpoint: '/products',
     query: {
-      skip: page * limit,
+      skip: nextPage * limit,
       limit,
       sort,
     },
@@ -35,6 +38,14 @@ const sortBy = sort => dispatch => {
   dispatch(getProducts());
 };
 
+const showNextPageAction = createAction('SHOW_NEXT_PAGE');
+const showNextPage = sort => (dispatch, getState) => {
+  const { products } = getState();
+
+  if (products.get('nextPage') === 0 || products.get('noMoreProducts')) return;
+  dispatch(showNextPageAction());
+};
+
 /**
  * Interface
  */
@@ -42,4 +53,5 @@ const sortBy = sort => dispatch => {
 export {
   getProducts,
   sortBy,
+  showNextPage,
 };

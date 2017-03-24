@@ -23,12 +23,14 @@ class Product extends Component {
       : date.fromNow();
 
     return (
-      <tr>
-        <td style={{ fontSize: product.get('size') }}>{product.get('face')}</td>
-        <td>{product.get('size')}</td>
-        <td>{`$${product.get('price').toFixed(2)}`}</td>
-        <td>{dateDisplay}</td>
-      </tr>
+      <div className="row">
+        <div className="cell" style={{ fontSize: product.get('size') }}>
+          {product.get('face')}
+        </div>
+        <div className="cell">{product.get('size')}</div>
+        <div className="cell">{`$${product.get('price').toFixed(2)}`}</div>
+        <div className="cell">{dateDisplay}</div>
+      </div>
     );
   }
 }

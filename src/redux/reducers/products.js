@@ -13,8 +13,9 @@ const initialState = fromJS({
   fetching: false,
   sort: 'id',
   nextPage: 0,
+  indexVisible: 0,
   noMoreProducts: false,
-  products: [],
+  pages: [],
 });
 
 /**
@@ -30,9 +31,11 @@ const reducer = handleActions({
       .set('fetching', false)
       .set('nextPage', (query.skip / query.limit) + 1)
       .set('noMoreProducts', results.length < query.limit)
-      .update('products', arr => arr.concat(fromJS(results))),
+      .update('pages', arr => arr.push(fromJS(results))),
 
   SORT_BY: (state, { payload: sort }) => initialState.set('sort', sort),
+
+  SHOW_NEXT_PAGE: state => state.set('indexVisible', state.get('indexVisible') + 1),
 
 }, initialState);
 

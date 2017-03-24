@@ -9,8 +9,32 @@ body {
 }
 
 .table {
-  border-collapse: collapse;
-  width: 800px;
+  border-top: 1px solid black;
+  width: 100%;
+}
+
+.table + .table {
+  border-top: none;
+}
+
+.row {
+  display: flex;
+  border-bottom: 1px solid black;
+}
+
+.row + .row {
+  border-top: none;
+}
+
+.cell {
+  width: 25%;
+  padding: 10px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.cell + .cell {
+  border-left: none;
 }
 
 .table th,
