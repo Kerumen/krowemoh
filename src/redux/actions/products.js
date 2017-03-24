@@ -39,7 +39,7 @@ const sortBy = sort => dispatch => {
 };
 
 const showNextPageAction = createAction('SHOW_NEXT_PAGE');
-const showNextPage = sort => (dispatch, getState) => {
+const showNextPage = () => (dispatch, getState) => {
   const { products } = getState();
 
   if (products.get('nextPage') === 0 || products.get('noMoreProducts')) return;

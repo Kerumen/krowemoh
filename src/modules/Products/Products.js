@@ -22,12 +22,13 @@ import Ad from './components/Ad';
 class Products extends Component {
   static propTypes = {
     products: ImmutablePropTypes.list,
+    page: PropTypes.number,
     getProducts: PropTypes.func.isRequired,
   };
 
   renderAd = index => {
     if (index > 0 && index % 20 === 0) {
-      return <Ad index={index} />;
+      return <Ad />;
     }
     return null;
   };
@@ -46,7 +47,7 @@ class Products extends Component {
         <Waypoint onEnter={this.onEnter} />
         {products.map((product, i) => [
           <Product index={i} key={product.get('id')} product={product} />,
-          this.renderAd(i)
+          this.renderAd(i),
         ])}
       </div>
     );

@@ -10,8 +10,6 @@ import React, { Component } from 'react';
 
 class Ad extends Component {
   render() {
-    const { index } = this.props;
-
     return (
       <div className="row">
         <div className="cell" style={{ width: '100%' }}>

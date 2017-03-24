@@ -8,7 +8,8 @@
     "start": "run-p client server",
     "server": "node .",
     "client": "webpack-dev-server --progress",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint src",
+    "precommit": "npm test"
   },
   "author": "Yann Pringault <yann.pringault@gmail.com>",
   "license": "MIT",
@@ -32,12 +33,16 @@
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.1",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
     "css-loader": "^0.27.3",
+    "eslint": "^3.18.0",
+    "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.13.2",
     "npm-run-all": "^4.0.2",
     "redux-devtools-extension": "^2.13.0",
     "style-loader": "^0.15.0",

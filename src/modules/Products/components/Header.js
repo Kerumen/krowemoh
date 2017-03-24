@@ -18,6 +18,7 @@ import { sortBy } from '../../../redux/actions/products';
 })
 class Header extends Component {
   static propTypes = {
+    header: PropTypes.object,
     sort: PropTypes.string,
     sortBy: PropTypes.func.isRequired,
   };
