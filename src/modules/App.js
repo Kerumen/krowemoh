@@ -69,7 +69,7 @@ class App extends Component {
           ) : pages.map((page, i) => indexVisible >= i && <Products key={i} page={i} products={page} />)}
         </div>
         <Waypoint onEnter={() => showNextPage()} />
-        {noMoreProducts && (<div>~ end of catalogue ~</div>)}
+        {noMoreProducts && (<div style={{ textAlign: 'center' }}>~ end of catalogue ~</div>)}
       </div>
     );
   }

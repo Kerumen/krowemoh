@@ -16,9 +16,7 @@ const getProducts = page => (dispatch, getState) => {
   const noMoreProducts = products.get('noMoreProducts');
   const nextPage = products.get('nextPage');
 
-  if (fetching || noMoreProducts) return;
-
-  if (page !== nextPage) return;
+  if (fetching || noMoreProducts || page !== nextPage) return;
 
   const sort = products.get('sort');
   const limit = 50;
@@ -35,7 +33,7 @@ const getProducts = page => (dispatch, getState) => {
 const sortByAction = createAction('SORT_BY');
 const sortBy = sort => dispatch => {
   dispatch(sortByAction(sort));
-  dispatch(getProducts());
+  dispatch(getProducts(0));
 };
 
 const showNextPageAction = createAction('SHOW_NEXT_PAGE');
