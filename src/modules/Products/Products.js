@@ -16,22 +16,20 @@ import Ad from './components/Ad';
  * Component
  */
 
-@connect(null, {
+@connect(state => ({
+  limit: state.products.get('limit'),
+}), {
   getProducts,
 })
 class Products extends Component {
   static propTypes = {
     products: ImmutablePropTypes.list,
     page: PropTypes.number,
+    limit: PropTypes.number,
     getProducts: PropTypes.func.isRequired,
   };
 
-  renderAd = index => {
-    if (index > 0 && index % 20 === 0) {
-      return <Ad />;
-    }
-    return null;
-  };
+  renderAd = index => index % 20 === 0 ? <Ad secondarySeed={index % 40 === 0}/> : null;
 
   onEnter = () => {
     const { getProducts, page } = this.props;
@@ -40,14 +38,14 @@ class Products extends Component {
   };
 
   render() {
-    const { products } = this.props;
+    const { products, page, limit } = this.props;
 
     return (
       <div className="table">
         <Waypoint onEnter={this.onEnter} />
         {products.map((product, i) => [
-          <Product index={i} key={product.get('id')} product={product} />,
-          this.renderAd(i),
+          <Product key={product.get('id')} product={product} />,
+          this.renderAd((i + 1) + (page * limit)),
         ])}
       </div>
     );

@@ -12,6 +12,7 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
   fetching: false,
   sort: 'id',
+  limit: 20,
   nextPage: 0,
   indexVisible: 0,
   noMoreProducts: false,

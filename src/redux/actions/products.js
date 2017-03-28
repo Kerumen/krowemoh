@@ -19,7 +19,7 @@ const getProducts = page => (dispatch, getState) => {
   if (fetching || noMoreProducts || page !== nextPage) return;
 
   const sort = products.get('sort');
-  const limit = 50;
+  const limit = products.get('limit');
   return dispatch(apiGetProducts({
     endpoint: '/products',
     query: {
